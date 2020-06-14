@@ -1,0 +1,99 @@
+<p>create works!</p>
+<div class="container">
+<form #acquisitionForm="ngForm" (ngSubmit)="addAcquisition(acquisitionForm)">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="title">Titulo</label>
+      <input type="text" class="form-control" placeholder="Titulo">
+    </div>
+  </div>
+    <div class="form-row">
+      <div class="form-group col">
+        <label for="title">Fecha de Invitacion</label>
+        <input type="date" class="form-control">
+    </div>
+      <div class="form-group col">
+        <label for="title">Fecha de Presentacion</label>
+        <input type="date" class="form-control">
+    </div>
+    <div class="form-group col">
+      <label for="title">Fecha de Ampliacion</label>
+      <input type="date" class="form-control">
+    </div>
+    <div class="form-group col">
+      <label for="title">Fecha de Consultas</label>
+      <input type="date" class="form-control">
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputCity">Correo</label>
+      <input type="email" class="form-control">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputState">Estado</label>
+      <select class="form-control">
+        <option selected>Vigente</option>
+        <option>Adjudicado</option>
+        <option>Anulado</option>
+        <option>Desierto</option>
+      </select>
+    </div>
+
+  </div>
+
+  <button type="submit" class="btn btn-primary">Sign in</button>
+</form>
+
+<div class="center">
+  <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)"
+  (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+      <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+        Optional custom content that replaces the the entire default content.
+         <!--<button type="button" (click)="openFileSelector()">Browse Files</button>-->
+      </ng-template>
+  </ngx-file-drop>
+  <div class="upload-table">
+      <table class="table">
+          <thead>
+              <tr>
+                  <th>Name</th>
+
+              </tr>
+          </thead>
+          <tbody class="upload-name-style">
+              <tr *ngFor="let item of files; let i=index">
+                  <td><strong>{{ item.relativePath }}</strong></td>
+              </tr>
+
+          </tbody>
+      </table>
+  </div>
+</div>
+
+</div>
+
+<table class="striped highlight black-text">
+  <thead>
+    <th>Titulo</th>
+    <th>Estado</th>
+    <th>Correo</th>
+
+  </thead>
+  <tbody>
+    <tr *ngFor="let acquisition of _acquisitionService.acquisitions">
+      <td>{{ acquisition.titulo }}</td>
+      <td>{{ acquisition.estado }}</td>
+      <td>{{ acquisition.correo }}</td>
+      <td>
+        <a (click)="editAcquisition(acquisition)">
+          <i class="material-icons">edit</i>
+        </a>
+        <a (click)="deleteAcquisition(acquisition._id, acquisitionForm)">
+          <i class="material-icons">delete</i>
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
